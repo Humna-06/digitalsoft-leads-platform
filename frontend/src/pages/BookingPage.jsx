@@ -72,7 +72,7 @@ export default function BookingPage() {
         <p className="text-gray-500 mb-6 text-sm">
           {new Date(bookedAppointment.startTime).toLocaleString()}
         </p>
-        <a href={getCalendarExportUrl(bookedAppointment._id)} className="inline-block bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium">
+        <a href={getCalendarExportUrl(bookedAppointment._id)} className="inline-block bg-spark-500 hover:bg-spark-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium">
           Download Calendar Invite (.ics)
         </a>
         <p className="text-xs text-gray-400 mt-4">
@@ -84,19 +84,19 @@ export default function BookingPage() {
       {toast && <Toast {...toast} onClose={() => setToast(null)} />}
 
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold text-gray-800">Book a Meeting</h1>
+        <h1 className="font-display text-2xl font-bold text-gray-800">Book a Meeting</h1>
         <p className="text-gray-500 mt-1">Choose a date and time that works for you.</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Your Email (used to submit inquiry)</label>
-          <input type="email" value={leadEmail} onChange={e => setLeadEmail(e.target.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none" placeholder="you@company.com" />
+          <input type="email" value={leadEmail} onChange={e => setLeadEmail(e.target.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-spark-400 outline-none" placeholder="you@company.com" />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Select a Date</label>
-          <input type="date" min={today} value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none" />
+          <input type="date" min={today} value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-spark-400 outline-none" />
         </div>
 
         {isLoadingSlots && <LoadingSpinner text="Loading available slots..." />}
@@ -106,7 +106,7 @@ export default function BookingPage() {
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {slots.map(slot => {
             const isSelected = selectedSlot?.startTime === slot.startTime;
-            return <button key={slot.startTime} disabled={!slot.available} onClick={() => setSelectedSlot(slot)} className={`text-xs py-2 rounded-lg border font-medium transition ${!slot.available ? "bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed" : isSelected ? "bg-brand-600 text-white border-brand-600" : "bg-white text-gray-700 border-gray-200 hover:border-brand-400"}`}>
+            return <button key={slot.startTime} disabled={!slot.available} onClick={() => setSelectedSlot(slot)} className={`text-xs py-2 rounded-lg border font-medium transition ${!slot.available ? "bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed" : isSelected ? "bg-spark-500 text-white border-spark-500" : "bg-white text-gray-700 border-gray-200 hover:border-spark-400"}`}>
                     {new Date(slot.startTime).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit"
@@ -116,7 +116,7 @@ export default function BookingPage() {
             </div>
           </div>}
 
-        <button onClick={handleBook} disabled={isBooking || !selectedSlot} className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white py-3 rounded-lg text-sm font-semibold transition">
+        <button onClick={handleBook} disabled={isBooking || !selectedSlot} className="w-full bg-spark-500 hover:bg-spark-600 disabled:opacity-50 text-white py-3 rounded-lg text-sm font-semibold transition">
           {isBooking ? "Booking..." : "Confirm Meeting"}
         </button>
       </div>

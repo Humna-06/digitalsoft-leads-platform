@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicLeadForm from "./pages/PublicLeadForm";
 import BookingPage from "./pages/BookingPage";
@@ -12,10 +13,12 @@ export default function App() {
       <Route path="/" element={<>
             <Navbar />
             <PublicLeadForm />
+            <Footer />
           </>} />
       <Route path="/book" element={<>
             <Navbar />
             <BookingPage />
+            <Footer />
           </>} />
       <Route path="/admin/login" element={<AdminLogin />} />
 

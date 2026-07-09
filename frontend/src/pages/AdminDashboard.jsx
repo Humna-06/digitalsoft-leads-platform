@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import StatusBadge from "../components/StatusBadge";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Toast from "../components/Toast";
+import PipelineStepper from "../components/PipelineStepper";
 const STATUS_OPTIONS = ["New", "Contacted", "Qualified", "Meeting Scheduled", "Proposal Sent", "Won", "Lost"];
 export default function AdminDashboard() {
   const [leads, setLeads] = useState([]);
@@ -59,8 +60,8 @@ export default function AdminDashboard() {
         {toast && <Toast {...toast} onClose={() => setToast(null)} />}
 
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Leads</h1>
-          <p className="text-gray-500 text-sm">Manage and track your conversion pipeline</p>
+          <h1 className="font-display text-2xl font-bold text-gray-800">Leads</h1>
+          <p className="text-gray-500 text-sm">Track every inquiry from first contact to closed deal</p>
         </div>
 
         {}
@@ -176,6 +177,11 @@ function LeadDetailPanel({
             <p className="text-xs text-gray-400 font-mono">{lead.leadId}</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">✕</button>
+        </div>
+
+        <div className="mb-6 bg-gray-50 rounded-xl p-4">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Pipeline Progress</p>
+          <PipelineStepper currentStage={lead.status} compact />
         </div>
 
         <div className="space-y-4 text-sm">

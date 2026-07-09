@@ -54,10 +54,6 @@ export default function AdminLogin() {
             {isLoading ? "Logging in..." : "Log In"}
           </button>
         </form>
-
-        <p className="text-xs text-gray-400 mt-6 text-center">
-          No account yet? Register the first admin via POST /api/auth/register (see README).
-        </p>
         </div>
       </div>
     </div>;
