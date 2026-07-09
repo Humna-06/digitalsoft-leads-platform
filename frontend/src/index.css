@@ -1,0 +1,11 @@
+/* This file imports Tailwind's base styles. Tailwind reads this and
+   generates all the utility classes (like "bg-blue-500", "p-4") we use
+   throughout our components. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}

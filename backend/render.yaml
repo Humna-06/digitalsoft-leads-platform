@@ -1,0 +1,20 @@
+# Render.com deployment blueprint (optional - you can also configure this
+# manually in the Render dashboard by connecting your GitHub repo).
+services:
+  - type: web
+    name: digitalsoft-leads-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false # set manually in Render dashboard (keep secrets out of git)
+      - key: JWT_SECRET
+        sync: false
+      - key: ORGANIZER_NAME
+        value: DigitalSoft Team
+      - key: ORGANIZER_EMAIL
+        value: meetings@digitalsoft.com
+      - key: GEMINI_API_KEY
+        sync: false
