@@ -9,6 +9,32 @@ This is a full-stack MVP built for DigitalSoft's technical evaluation. It handle
 - Visitors can book a meeting from available time slots, and get a `.ics` calendar file they can drop into Google Calendar, Outlook, or Apple Calendar.
 - The internal team logs into an admin dashboard to search/filter leads, update pipeline status, add notes, and manage bookings (view, cancel, reschedule, export).
 
+## Architecture Diagram
+
+```text
+                    User
+                      │
+                      ▼
+┌──────────────────────┐
+│ React Frontend       │
+│ (Vite + Tailwind CSS)│
+└──────────────────────┘
+          │
+          │ REST API (JSON)
+          ▼
+┌──────────────────────┐
+│ Express.js Backend   │
+│ (Node.js)            │
+└──────────────────────┘
+      │        │        │
+      ▼        ▼        ▼
+┌──────────┐ ┌──────────────┐ ┌──────────────────┐
+│ MongoDB  │ │ AI Summary   │ │ iCalendar (.ics) │
+│ Atlas    │ │ Service       │ │ RFC 5545         │
+│Mongoose  │ │(Gemini/Mock)  │ │ Generator        │
+└──────────┘ └──────────────┘ └──────────────────┘
+```
+
 ## Tech stack
 
 Frontend is React (Vite) with Tailwind CSS, React Router, and Axios. Backend is Node/Express with MongoDB via Mongoose. Auth is JWT-based with bcrypt password hashing. Calendar invites are generated with the `ics` package, which produces standard RFC 5545 files — the same format Google/Outlook/Apple all read — so there was no need to stand up something like Cal.com just for this.
@@ -85,10 +111,47 @@ Lead status can be changed manually by an admin, or gets set automatically to "M
 
 Reschedule/cancel are admin-only actions, matching what the assignment specifies — visitors book through the public flow, and any changes after that go through the team.
 
+## Calendar Integration
+
+The appointment booking workflow follows the iCalendar (RFC 5545) standard.
+
+Workflow:
+
+1. A visitor selects an available meeting slot.
+2. The appointment is saved in MongoDB.
+3. The backend generates a standards-compliant `.ics` calendar invitation.
+4. The user downloads the invitation.
+5. The file can be imported into Google Calendar, Microsoft Outlook, and Apple Calendar.
+
+This approach provides cross-platform compatibility without requiring vendor-specific calendar APIs.
+
+
 ## Deployment
 
-Frontend deploys to Vercel (`vercel.json` handles the SPA routing so refreshing on e.g. `/admin/dashboard` doesn't 404). Backend deploys to Render (`render.yaml` included) or anywhere that can run the included `Dockerfile`. Database is MongoDB Atlas, free tier is enough for this.
+Frontend is deployed on **Vercel**.
+
+Backend is deployed on **Render**.
+
+Database is hosted on **MongoDB Atlas**.
+
+The backend is also compatible with Docker using the included `Dockerfile`.
+
+### Live Demo
+
+Frontend:
+https://digitalsoft-leads-platform.vercel.app
+
+Backend:
+https://digitalsoft-backend.onrender.com
+
+### Demo Credentials
+
+**Admin Email:** admin@digitalsoft.com
+
+**Admin Password:** admin123
 
 ## What I'd add next
 
 Real-time status updates across multiple admin sessions, email notifications on submission/booking, two-way Google Calendar sync for the organizer's side, and pagination on the leads table once volume grows.
+
+This implementation focuses on delivering a production-ready MVP while keeping the architecture modular and easy to extend with additional enterprise features.
